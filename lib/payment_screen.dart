@@ -52,22 +52,26 @@ class _MyWidgetState extends State<PaymentScreen> {
                   ),
                 ),
                 SizedBox(
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Icon(
-                        Icons.add,
-                        color: Color(0xFF4157FF),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
                       Text(
-                        "Add More",
+                        "Total",
                         style: TextStyle(
                           fontFamily: "SofiaPro",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF006AFF),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xFF090F47).withOpacity(0.45),
+                        ),
+                      ),
+                      Text(
+                        "Rp 185.000",
+                        style: GoogleFonts.overpass(
+                          textStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF090F47),
+                          ),
                         ),
                       ),
                     ],
@@ -76,17 +80,54 @@ class _MyWidgetState extends State<PaymentScreen> {
               ],
             ),
             SizedBox(
-              height: 15,
+              height: 25,
             ),
-            buildCartList("assets/images/prod2.png", "Rp 25.000"),
+            Text(
+              "Delivery Address",
+              style: GoogleFonts.overpass(
+                textStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF090F47),
+                ),
+              ),
+            ),
             SizedBox(
-              height: 30,
+              height: 25,
             ),
-            buildCartList("assets/images/prod3.png", "Rp 18.000"),
+            buildAddress("assets/icons/ic1.png", "Home"),
+            SizedBox(
+              height: 25,
+            ),
+            buildAddress("assets/icons/ic2.png", "Office"),
             SizedBox(
               height: 50,
             ),
-            buildCoupon(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Color(0xFF4157FF),
+                    ),
+                    Text(
+                      "Add Address",
+                      style: TextStyle(
+                        fontFamily: "SofiaPro",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xFF4157FF),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             SizedBox(
               height: 10,
             ),
@@ -98,7 +139,7 @@ class _MyWidgetState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Payment Summary",
+                        "Payment Method",
                         style: GoogleFonts.overpass(
                           textStyle: TextStyle(
                             fontSize: 16,
@@ -110,7 +151,7 @@ class _MyWidgetState extends State<PaymentScreen> {
                       SizedBox(
                         height: 30,
                       ),
-                      buildSummary(),
+                      buildMethod(),
                     ],
                   ),
                   SizedBox(
@@ -126,27 +167,34 @@ class _MyWidgetState extends State<PaymentScreen> {
     );
   }
 
-  //Cart
-  Widget buildCartList(String path, String price) {
+  //address
+  Widget buildAddress(String path, String address) {
     return Container(
       height: 80,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            path,
-            height: 80,
-            width: 70,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Image.asset(
+                    path,
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 20,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Sugar free gold",
+                    address,
                     style: GoogleFonts.overpass(
                       textStyle: TextStyle(
                         fontSize: 14,
@@ -155,8 +203,21 @@ class _MyWidgetState extends State<PaymentScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    "bottle of 500 pellets",
+                    "(205) 555-024",
+                    style: GoogleFonts.overpass(
+                      textStyle: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF090F47).withOpacity(0.45),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "1786 Wheeler Bridge",
                     style: GoogleFonts.overpass(
                       textStyle: TextStyle(
                         fontSize: 13,
@@ -167,62 +228,13 @@ class _MyWidgetState extends State<PaymentScreen> {
                   ),
                 ],
               ),
-              Text(
-                price,
-                style: GoogleFonts.overpass(
-                  textStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF090F47),
-                  ),
-                ),
-              )
             ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Image.asset("assets/icons/silang.png"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        color: Color(0xFFDFE3FF)),
-                    child: Image.asset("assets/icons/decrease.png"),
-                  ),
-                  SizedBox(
-                    width: 7,
-                  ),
-                  Text(
-                    "1",
-                    style: TextStyle(
-                      fontFamily: "SofiaPro",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xFF000000),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 7,
-                  ),
-                  Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        color: Color(0xFFA0ABFF)),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              )
+              Image.asset("assets/icons/ic3.png"),
             ],
           )
         ],
@@ -267,143 +279,119 @@ class _MyWidgetState extends State<PaymentScreen> {
   }
 
   //Summary
-  Widget buildSummary() {
+  Widget buildMethod() {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Order Total",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47).withOpacity(0.45),
+            Row(
+              children: [
+                Image.asset("assets/images/im1.png"),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
+                Text(
+                  "Credit Card",
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF090F47),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Rp 228.800",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47),
-                ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Items Discount",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47).withOpacity(0.45),
-                ),
-              ),
-            ),
-            Text(
-              "- Rp 28.800",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47),
-                ),
-              ),
+            Image.asset(
+              "assets/icons/ic1.png",
             ),
           ],
         ),
         SizedBox(
-          height: 15,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Coupon Discount",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47).withOpacity(0.45),
+            Row(
+              children: [
+                Image.asset("assets/images/im2.png"),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
+                Text(
+                  "Paypal",
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF090F47),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "- Rp 15.800",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47),
-                ),
-              ),
+            Image.asset(
+              "assets/icons/ic1.png",
             ),
           ],
         ),
         SizedBox(
-          height: 15,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Shipping",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47).withOpacity(0.45),
+            Row(
+              children: [
+                Image.asset("assets/images/im3.png"),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
+                Text(
+                  "Google Pay",
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF090F47),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Free",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47),
-                ),
-              ),
+            Image.asset(
+              "assets/icons/ic1.png",
             ),
           ],
         ),
         SizedBox(
-          height: 20,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Total",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF090F47),
+            Row(
+              children: [
+                Image.asset("assets/images/im4.png"),
+                SizedBox(
+                  width: 10,
                 ),
-              ),
+                Text(
+                  "Apple Pay",
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF090F47),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Rp 185.000",
-              style: GoogleFonts.overpass(
-                textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF090F47),
-                ),
-              ),
+            Image.asset(
+              "assets/icons/ic1.png",
             ),
           ],
         ),
