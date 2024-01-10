@@ -63,6 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
 //Textfield
   Widget buildTextField(BuildContext context) {
+    bool isObscure = true;
     TextEditingController nameController = TextEditingController();
     TextEditingController numberController = TextEditingController();
     TextEditingController emailController = TextEditingController();
@@ -108,7 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: EdgeInsets.symmetric(horizontal: 31),
           height: 50,
           child: TextField(
-            controller: nameController,
+            controller: numberController,
             decoration: InputDecoration(
                 label: Text(
                   "Mobile Number",
@@ -143,7 +144,7 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: EdgeInsets.symmetric(horizontal: 31),
           height: 50,
           child: TextField(
-            controller: nameController,
+            controller: emailController,
             decoration: InputDecoration(
                 label: Text(
                   "Email",
@@ -181,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
             height: 50,
             child: TextField(
               controller: passwordController,
-              obscureText: true,
+              obscureText: isObscure,
               decoration: InputDecoration(
                 label: Text(
                   "Password",
@@ -202,6 +203,17 @@ class _SignupScreenState extends State<SignupScreen> {
                   color: const Color(0xFF090F47).withOpacity(0.45),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isObscure ? Icons.visibility : Icons.visibility_off,
+                    color: Color(0xFF090F47).withOpacity(0.45),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                ),
               ),
               style: TextStyle(
                 fontFamily: "Arial",
