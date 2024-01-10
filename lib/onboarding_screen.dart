@@ -57,9 +57,27 @@ class _WalkthroughtState extends State<Walkthrough1> {
           );
         },
         showNextButton: true,
-        next: Text("Next"),
+        next: Text(
+          "Next",
+          style: GoogleFonts.overpass(
+            textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4157FF),
+            ),
+          ),
+        ),
         showSkipButton: true,
-        skip: Text("Skip"),
+        skip: Text(
+          "Skip",
+          style: GoogleFonts.overpass(
+            textStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF090F47).withOpacity(0.45),
+            ),
+          ),
+        ),
       ),
     );
   }

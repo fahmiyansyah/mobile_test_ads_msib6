@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_test_ads/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,27 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 24, right: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Top Categories",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                buildCategories(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: 530,
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(left: 24, right: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Deals of the Day",
+                      "Top Categories",
                       style: GoogleFonts.overpass(
                         textStyle: TextStyle(
                           fontSize: 16,
@@ -58,33 +48,59 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    buildCategories(),
+                    SizedBox(height: 35),
+                    Center(child: buildImageBanner()),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Deals of the Day",
+                          style: GoogleFonts.overpass(
+                            textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF090F47),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "More",
+                          style: GoogleFonts.overpass(
+                            textStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF006AFF),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    buildDeals(),
+                    SizedBox(height: 20),
                     Text(
-                      "More",
+                      "Featured Brands",
                       style: GoogleFonts.overpass(
                         textStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF006AFF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF090F47),
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    buildFeaturedBrands(),
                   ],
                 ),
-                Text(
-                  "Featured Brands",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           )
         ],
       ),
+      bottomNavigationBar: buildBottomBar(context),
     );
   }
 
@@ -234,15 +250,54 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //Top Categories
   Widget buildCategories() {
+    List<Map<String, dynamic>> categories = [
+      {
+        'color': [Color(0xFFFF9598), Color(0xFFFF70A7)],
+        'imagePath': "assets/icons/cat1.png",
+        'categoryName': "Dental",
+      },
+      {
+        'color': [Color(0xFF19E5A5), Color(0xFF15BD92)],
+        'imagePath': "assets/icons/cat2.png",
+        'categoryName': "Wellness",
+      },
+      {
+        'color': [Color(0xFFFFC06F), Color(0xFFFF793A)],
+        'imagePath': "assets/icons/cat3.png",
+        'categoryName': "Homeo",
+      },
+      {
+        'color': [Color(0xFF4DB7FF), Color(0xFF3E7DFF)],
+        'imagePath': "assets/icons/cat4.png",
+        'categoryName': "Eye Care",
+      },
+      {
+        'color': [Color(0xFF828282), Color(0xFF090F47)],
+        'imagePath': "assets/icons/cat5.png",
+        'categoryName': "Skin & Hair",
+      },
+    ];
+
     return SizedBox(
       height: 98,
       child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 5,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 32),
+        shrinkWrap: true,
+        itemCount: categories.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, index) {
+          Map<String, dynamic> category = categories[index];
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 32),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CategoryDetailScreen(),
+                  ),
+                );
+              },
               child: Column(
                 children: [
                   Container(
@@ -250,31 +305,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 48,
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      gradient: LinearGradient(
+                        colors: category['color'],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Center(
                       child: Image(
-                        image: AssetImage("assets/icons/cat1.png"),
+                        image: AssetImage(category['imagePath']),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  //Text
+                  // Text
                   SizedBox(
                     height: 8,
                   ),
                   SizedBox(
                     width: 48,
                     child: Text(
-                      "Category",
+                      category['categoryName'],
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.overpass(
                         textStyle: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w300,
                           color: Color(0xFF090F47).withOpacity(0.95),
                         ),
-                        
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -282,13 +341,380 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 
-  // //Deals Of the day
-  // Widget buildDeals() {}
-  // //Featured Brands
-  // Widget buildFeaturedBrands() {}
+  //Banner
+  Widget buildImageBanner() {
+    return Container(
+      height: 140,
+      width: 326,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/banner.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 23,
+            right: 171,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 150,
+                child: Text(
+                  "Save extra on every order",
+                  maxLines: 2,
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF1987FB),
+                      height: 1.0,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 120,
+                child: Text(
+                  "Etiam mollis metus non faucibus . ",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.overpass(
+                    textStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                      color: Color(0xFF090F47).withOpacity(0.65),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Deals Of the day
+  Widget buildDeals() {
+    List<Map<String, dynamic>> brand = [
+      {
+        'imagePath': "assets/images/brand1_image.png",
+        'brandName': "Accu-check Active Test Strip",
+        'brandPrice': "Rp 112.500",
+      },
+      {
+        'imagePath': "assets/images/brand2_image.png",
+        'brandName': "Omron HEM-8712 BP Monitor",
+        'brandPrice': "Rp 150.000",
+      },
+      {
+        'imagePath': "assets/images/brand1_image.png",
+        'brandName': "Accu-check Active Test Strip",
+        'brandPrice': "Rp 112.500",
+      },
+    ];
+
+    return SizedBox(
+      height: 250,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: brand.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, index) {
+          Map<String, dynamic> brandd = brand[index];
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: GestureDetector(
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => CategoryDetailScreen(),
+                //   ),
+                // );
+              },
+              child: Column(
+                children: [
+                  Container(
+                    height: 154,
+                    width: 178,
+                    child: Center(
+                      child: Image(
+                        height: 134,
+                        width: 109,
+                        image: AssetImage(brandd['imagePath']),
+                      ),
+                    ),
+                  ),
+                  // Text
+                  SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 105,
+                          child: Text(
+                            brandd['brandName'],
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.overpass(
+                              textStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF090F47),
+                              ),
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              brandd['brandPrice'],
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.overpass(
+                                textStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF090F47),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 24,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(0),
+                                  bottomRight: Radius.circular(0),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                                color: Color(0xFFFFC000),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 17,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "4.2",
+                                    style: TextStyle(
+                                        fontFamily: "SofiaPro",
+                                        fontSize: 13,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Featured Brands
+  Widget buildFeaturedBrands() {
+    List<Map<String, dynamic>> brand = [
+      {
+        'imagePath': "assets/images/himalaya-logo.jpg",
+        'brandName': "Himalaya Wellness",
+      },
+      {
+        'imagePath': "assets/images/accu chek.jpeg",
+        'brandName': "Accu-Chek",
+      },
+      {
+        'imagePath': "assets/images/vlcc.png",
+        'brandName': "Vlcc",
+      },
+      {
+        'imagePath': "assets/images/protinex.avif",
+        'brandName': "Protinex",
+      },
+    ];
+
+    return SizedBox(
+      height: 126,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: brand.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, index) {
+          Map<String, dynamic> brandd = brand[index];
+          return Padding(
+            padding: const EdgeInsets.only(right: 25),
+            child: GestureDetector(
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => CategoryDetailScreen(),
+                //   ),
+                // );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 80,
+                    width: 80,
+                    child: Center(
+                      child: Image(
+                        image: AssetImage(brandd['imagePath']),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  // Text
+                  SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    child: SizedBox(
+                      width: 80,
+                      child: Text(
+                        brandd['brandName'],
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.overpass(
+                          textStyle: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF090F47),
+                          ),
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // Bottom Bar
+  Widget buildBottomBar(BuildContext context) {
+    return BottomNavigationBar(
+      showUnselectedLabels: false,
+      showSelectedLabels: false,
+      iconSize: 25,
+      selectedItemColor: Color(0xFF4157FF),
+      unselectedItemColor: Color(0xFF090F47).withOpacity(0.45),
+      currentIndex: _currentIndex,
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+
+        switch (index) {
+          case 0:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ),
+            );
+            break;
+          case 1:
+            //  Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => NotifScreen(),
+            //     ),
+            //   );
+            break;
+          case 2:
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => AddScreen(),
+            //   ),
+            // );
+            break;
+          case 3:
+            //  Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => CartScreen(),
+            //     ),
+            //   );
+            break;
+          case 4:
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => ProfileScreen(),
+            //   ),
+            // );
+            break;
+        }
+      },
+      items: [
+        BottomNavigationBarItem(
+            icon: Image.asset("assets/icons/home.png"), label: 'Home'),
+        BottomNavigationBarItem(
+            icon: Image.asset("assets/icons/notif.png"), label: 'Notif'),
+        BottomNavigationBarItem(
+            icon: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.elliptical(6, 6)),
+                  color: Color(0xFF4157FF),
+                ),
+                child: Image.asset("assets/icons/add.png")),
+            label: 'Add'),
+        BottomNavigationBarItem(
+            icon: Image.asset("assets/icons/cart.png"), label: 'Cart'),
+        BottomNavigationBarItem(
+            icon: Image.asset(
+              "assets/icons/username.png",
+              color: Color(0xFF090F47).withOpacity(0.45),
+            ),
+            label: 'Profile'),
+      ],
+    );
+  }
 }
