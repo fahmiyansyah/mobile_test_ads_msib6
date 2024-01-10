@@ -282,118 +282,130 @@ class _MyWidgetState extends State<PaymentScreen> {
   Widget buildMethod() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset("assets/images/im1.png"),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Credit Card",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
+        Container(
+          padding: EdgeInsets.only(left: 15, right: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset("assets/images/im1.png"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Credit Card",
+                    style: GoogleFonts.overpass(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF090F47),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Image.asset(
-              "assets/icons/ic1.png",
-            ),
-          ],
+                ],
+              ),
+              Image.asset(
+                "assets/icons/ic1.png",
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 30,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset("assets/images/im2.png"),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Paypal",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
+        Container(
+          padding: EdgeInsets.only(left: 15, right: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset("assets/images/im2.png"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Paypal",
+                    style: GoogleFonts.overpass(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF090F47),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Image.asset(
-              "assets/icons/ic1.png",
-            ),
-          ],
+                ],
+              ),
+              Image.asset(
+                "assets/icons/ic1.png",
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 30,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset("assets/images/im3.png"),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Google Pay",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
+        Container(
+          padding: EdgeInsets.only(left: 15, right: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset("assets/images/im3.png"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Google Pay",
+                    style: GoogleFonts.overpass(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF090F47),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Image.asset(
-              "assets/icons/ic1.png",
-            ),
-          ],
+                ],
+              ),
+              Image.asset(
+                "assets/icons/ic1.png",
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 30,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Image.asset("assets/images/im4.png"),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "Apple Pay",
-                  style: GoogleFonts.overpass(
-                    textStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF090F47),
+        Container(
+          padding: EdgeInsets.only(left: 15, right: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset("assets/images/im4.png"),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Apple Pay",
+                    style: GoogleFonts.overpass(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF090F47),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Image.asset(
-              "assets/icons/ic1.png",
-            ),
-          ],
+                ],
+              ),
+              Image.asset(
+                "assets/icons/ic1.png",
+              ),
+            ],
+          ),
         ),
       ],
     );
